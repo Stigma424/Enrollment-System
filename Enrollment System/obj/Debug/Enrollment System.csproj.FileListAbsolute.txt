@@ -1,0 +1,35 @@
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\bin\Debug\Enrollment System.exe.config
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\bin\Debug\Enrollment System.exe
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\bin\Debug\Enrollment System.pdb
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment System.csproj.AssemblyReference.cache
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment System.csproj.SuggestedBindingRedirects.cache
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.Properties.Resources.resources
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment System.csproj.GenerateResource.cache
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment System.csproj.CoreCompileInputs.cache
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment System.exe
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment System.pdb
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\bin\Debug\Database.accdb
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\bin\Debug\Enrollment System.exe.config
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\bin\Debug\Enrollment System.exe
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\bin\Debug\Enrollment System.pdb
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment System.csproj.AssemblyReference.cache
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.Properties.Resources.resources
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment System.csproj.GenerateResource.cache
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment System.csproj.CoreCompileInputs.cache
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment System.exe
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment System.pdb
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.MainMenu.resources
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.SubjectEntryForm.resources
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.DisplayStudentList.resources
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.StudentEntryForm.resources
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.SubjectScheduleEntryForm.resources
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.StudentEnrollmentEntryForm.resources
+C:\Users\JD\Desktop\APPSDEV FINALS\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.StudentGradeEntryForm.resources
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\bin\Debug\Database.accdb
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.DisplayStudentList.resources
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.StudentEnrollmentEntryForm.resources
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.StudentGradeEntryForm.resources
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.SubjectScheduleEntryForm.resources
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.SubjectEntryForm.resources
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.MainMenu.resources
+\\Server2\second semester 2023-2024\LAB802\78991_CC_APPSDEV22_0900_1000_AM_MW\78991-23208325\Desktop\FINAL\Enrollment System\Enrollment System\obj\Debug\Enrollment_System.StudentEntryForm.resources
