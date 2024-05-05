@@ -26,6 +26,8 @@ namespace Enrollment_System
             mainMenu.ShowDialog();
             Close();
         }
+        //TODO ALOT
+        //COMPLETION SAVING = 0% CONDITIONS = DEAD UI = TRASH
         private void GiveDataToSubjectEnrollmentGridView()
         {
             OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
@@ -42,7 +44,7 @@ namespace Enrollment_System
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-             OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
+            OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
             String thisCommand;
             OleDbDataAdapter thisAdapter = new OleDbDataAdapter();
         }

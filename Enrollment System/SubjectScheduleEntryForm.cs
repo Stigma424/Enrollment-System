@@ -22,8 +22,9 @@ namespace Enrollment_System
         {
 
         }
-        // TO-DO
-        // Make it so that putting an entry of subjects with conflicting days,time,and room will not be allowed
+        //TODO ALOT = Do something about the DATETIME in database / Condition to avoid time days room conflict and more conditions
+        // include list soon
+        //COMPLETION SAVING = 80% CONDITIONS = NAH UI = TRASH
         private void SaveButon_Click(object sender, EventArgs e)
         {
             OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
@@ -53,7 +54,7 @@ namespace Enrollment_System
                         thisRow["SSFSTARTTIME"] = TimeStartHourComboBox.Text +":"+TimeStartMinuteComboBox.Text + StartCombobox.Text.Trim();
                         thisRow["SSFENDTIME"] =TimeEndHourComboBox.Text + ":"+TimeEndMinuteComboBox.Text + EndCombobox.Text.Trim();
                         thisRow["SSFDAYS"] = days;
-                        thisRow["SSFROOM"] =RoomTextbox.Text.Trim().Substring(1,4);
+                        thisRow["SSFROOM"] =RoomTextbox.Text.Trim();//DO somethign about the 4 max text
                         thisRow["SSFMAXSIZE"] = 50;
                         thisRow["SSFCLASSSIZE"] = 0;
                         thisRow["SSFSTATUS"] = StatusComboBox.Text.Trim().Substring(0,2);

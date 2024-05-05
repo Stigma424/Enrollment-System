@@ -31,8 +31,8 @@ namespace Enrollment_System
         {
 
         }
-        //TODO LIMPYOHI NYA HIMO LAIN FORM GURO PARA SA PAG SAVE OG PRE REQUISITE OG CO REQUISITE
-        // ANG PURPOSE UNTA ANI KAY PANG FIND RA KUNG NAA REQUISITE ANG USA KA SUB OR WA
+        //TODO TBD = MAYBE HAVE ANOTHER SAVE AND LIST FOR SUBJECTS AND SUBJECTS WITH REQ
+        //COMPLETION SAVING = 100% CONDITIONS = FINISHED? UI = TRASH
         private void RIRequisiteTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
