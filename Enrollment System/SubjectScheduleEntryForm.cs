@@ -22,7 +22,8 @@ namespace Enrollment_System
         {
 
         }
-        //TODO ALOT = Do something about the DATETIME in database / Condition to avoid time days room conflict and more conditions
+        //TODO ALOT = Do something about the DATETIME in database / Condition to avoid time end must not be lesser than start
+        //days room conflict and more conditions
         // include list soon
         //COMPLETION SAVING = 80% CONDITIONS = NAH UI = TRASH
         private void SaveButon_Click(object sender, EventArgs e)
@@ -39,7 +40,7 @@ namespace Enrollment_System
                             TimeEndHourComboBox.Text,TimeStartMinuteComboBox.Text,EndCombobox.Text,RoomTextbox.Text,StatusComboBox.Text,SectionTextbox.Text
                             ,SchoolYearTextbox.Text};
             String days;
-            Boolean isNotNull = condition.IsNotNull(text),isDaysNotNull = CheckDays(), isValid,isYearInt;
+            Boolean isNotNull = condition.IsNotNull(text),isDaysNotNull = CheckDays(), isValid,isYearInt,isNotConflicted;
             if (isNotNull && isDaysNotNull)
             {
                 days = DaysChosen();
@@ -47,7 +48,8 @@ namespace Enrollment_System
                 if (isValid)
                 {
                     isYearInt = condition.isInteger(SchoolYearTextbox.Text);
-                    if(isYearInt)
+                    isNotConflicted = CheckConflict(DataSet);
+                    if(isYearInt && isNotConflicted)
                     {
                         thisRow["SSFEDPCODE"] = SubjectEDPCodeTextbox.Text.Trim();
                         thisRow["SSFSUBJCODE"] = SubjectCodeTextbox.Text.Trim();
@@ -79,6 +81,24 @@ namespace Enrollment_System
             {
                 MessageBox.Show("Field Entry Required");
             }
+        }
+        private Boolean CheckConflict(DataSet thisDataSet)
+        {
+            DateTime timeStart = Convert.ToDateTime(TimeStartHourComboBox.Text + ":" + TimeStartMinuteComboBox.Text + StartCombobox.Text.Trim()),
+                     timeEnd = Convert.ToDateTime(TimeEndHourComboBox.Text + ":" + TimeEndMinuteComboBox.Text + EndCombobox.Text.Trim());
+            DataRow navigatorRow;
+            int rowNavigator = 0;
+            foreach (DataRow row in thisDataSet.Tables["SubjectSchedFile"].Rows)
+            {
+                navigatorRow = thisDataSet.Tables["SubjectSchedFile"].Rows[rowNavigator];
+                if (Convert.ToDateTime(navigatorRow.ItemArray.GetValue(2).ToString()) < timeEnd && Convert.ToDateTime(navigatorRow.ItemArray.GetValue(3).ToString()) > timeStart)
+                {  
+                        return false;
+                }
+                rowNavigator++;
+
+            }
+            return true;
         }
         /// <summary>
         /// Method to check if user has atleast checked one checkbox for days

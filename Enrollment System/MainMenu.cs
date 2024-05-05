@@ -16,6 +16,7 @@ namespace Enrollment_System
         {
             InitializeComponent();
             DatabaseConnectionString constructConnection = new DatabaseConnectionString();
+            UpdateScript runScript = new UpdateScript();
         }
 
         private void SubjectEntryFormButton_Click(object sender, EventArgs e)
@@ -66,13 +67,11 @@ namespace Enrollment_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            UpdateScript runScript = new UpdateScript();
             String fileName = "Database.accdb";
             String MainPath = AppDomain.CurrentDomain.BaseDirectory;
             String word = MainPath.Replace("\\bin\\Debug","");
             MessageBox.Show(word + fileName);
-            
-
         }
     }
 }

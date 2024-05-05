@@ -45,8 +45,20 @@ namespace Enrollment_System
         private void SaveButton_Click(object sender, EventArgs e)
         {
             OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
-            String thisCommand;
-            OleDbDataAdapter thisAdapter = new OleDbDataAdapter();
+            String sql = "SELECT * FROM ENROLLMENTHEADERFILE";
+            OleDbDataAdapter thisAdapter = new OleDbDataAdapter(sql,thisConnection);
+            OleDbCommandBuilder thisBuilder = new OleDbCommandBuilder(thisAdapter);
+            DataSet thisDataSet = new DataSet();
+
+            Conditions conditions = new Conditions();
+            string[] entryFields = {IDNumberTextbox.Text,NameTextbox.Text,CourseTextbox.Text,EDPCodeTextbox.Text,YearTextbox.Text,
+                        EncoderTextbox.Text,EnrollmentDateTimePicker.Text,UnitsTextBox.Text};
+            bool isNotNull;
+            isNotNull = conditions.IsNotNull(entryFields);
+            if (isNotNull)
+            {
+
+            }
         }
 
         private void SubjectEnrollmentGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)

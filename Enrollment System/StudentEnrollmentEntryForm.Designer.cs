@@ -45,7 +45,7 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.EnrollmentDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.label8 = new System.Windows.Forms.Label();
-            this.EncodedByTextbox = new System.Windows.Forms.TextBox();
+            this.EncoderTextbox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.SubjectEnrollmentGridView = new System.Windows.Forms.DataGridView();
             this.EDPCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -196,7 +196,7 @@
             this.groupBox2.Controls.Add(this.SaveButton);
             this.groupBox2.Controls.Add(this.EnrollmentDateTimePicker);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.EncodedByTextbox);
+            this.groupBox2.Controls.Add(this.EncoderTextbox);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Location = new System.Drawing.Point(35, 255);
             this.groupBox2.Name = "groupBox2";
@@ -233,13 +233,13 @@
             this.label8.TabIndex = 19;
             this.label8.Text = "Date";
             // 
-            // EncodedByTextbox
+            // EncoderTextbox
             // 
-            this.EncodedByTextbox.Location = new System.Drawing.Point(74, 30);
-            this.EncodedByTextbox.Margin = new System.Windows.Forms.Padding(2);
-            this.EncodedByTextbox.Name = "EncodedByTextbox";
-            this.EncodedByTextbox.Size = new System.Drawing.Size(76, 20);
-            this.EncodedByTextbox.TabIndex = 18;
+            this.EncoderTextbox.Location = new System.Drawing.Point(74, 30);
+            this.EncoderTextbox.Margin = new System.Windows.Forms.Padding(2);
+            this.EncoderTextbox.Name = "EncoderTextbox";
+            this.EncoderTextbox.Size = new System.Drawing.Size(76, 20);
+            this.EncoderTextbox.TabIndex = 18;
             // 
             // label7
             // 
@@ -379,7 +379,7 @@
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.DateTimePicker EnrollmentDateTimePicker;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox EncodedByTextbox;
+        private System.Windows.Forms.TextBox EncoderTextbox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView SubjectEnrollmentGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn EDPCode;

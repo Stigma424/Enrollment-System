@@ -54,7 +54,7 @@
     <Compile Include="DisplayStudentList.Designer.cs">
       <DependentUpon>DisplayStudentList.cs</DependentUpon>
     </Compile>
-    <Compile Include="StatusUpdateScript.cs" />
+    <Compile Include="UpdateScript.cs" />
     <Compile Include="StudentGradeEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
