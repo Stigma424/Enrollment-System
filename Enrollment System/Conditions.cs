@@ -15,7 +15,7 @@ namespace Enrollment_System
         /// Method to check if there are null,empty or whitespace required fields
         /// </summary>
         /// <returns> Returns true if there is no empty required fields and false if there is</returns>
-        public Boolean IsNull(String[] textBoxes)
+        public Boolean IsNotNull(String[] textBoxes)
         {
             
             for (int i = 0; i < textBoxes.Length; i++)
@@ -34,20 +34,20 @@ namespace Enrollment_System
         /// <returns>returns true if there is no duplicate and false if there is</returns>
         public Boolean IsValid(String tableName,DataSet DataSet, String primary, int key)
         {
-            Boolean isValid = true;
+           
             DataRow navigatorRow;
             int rowNavigator = 0;
             foreach (DataRow row in DataSet.Tables[tableName].Rows)
             {
                 navigatorRow = DataSet.Tables[tableName].Rows[rowNavigator];
-                if (navigatorRow.ItemArray.GetValue(key).ToString() == primary.Trim())
+                if (navigatorRow.ItemArray.GetValue(key).ToString().ToUpper() == primary.Trim().ToUpper())
                 {
                     return false;
                 }
                 rowNavigator++;
 
             }
-            return isValid;
+            return true;
         }
         /// <summary>
         /// Method to check if there are any duplicate student ID in the database using 2 primary and 2 key
@@ -56,7 +56,6 @@ namespace Enrollment_System
         /// <returns>returns true if there is no duplicate and false if there is</returns>
         public Boolean IsValid(String tableName,DataSet DataSet, String primary1, String primary2, int key1,int key2)
         {
-            Boolean isValid = true;
             DataRow navigatorRow;
             int rowNavigator = 0;
             foreach (DataRow row in DataSet.Tables[tableName].Rows)
@@ -72,8 +71,13 @@ namespace Enrollment_System
                 rowNavigator++;
 
             }
-            return isValid;
+            return true;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public Boolean isInteger(String text)
         {
             try
@@ -85,5 +89,6 @@ namespace Enrollment_System
                 return false; 
             }
         }
+        
     }
 }

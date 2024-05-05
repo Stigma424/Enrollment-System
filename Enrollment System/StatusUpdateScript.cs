@@ -8,6 +8,7 @@ namespace Enrollment_System
 {
     internal class StatusUpdateScript
     {
-
+        // Run this at application start
+        // this Script will check
     }
 }

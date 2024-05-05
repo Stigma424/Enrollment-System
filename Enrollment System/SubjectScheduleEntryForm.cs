@@ -38,7 +38,7 @@ namespace Enrollment_System
                             TimeEndHourComboBox.Text,TimeStartMinuteComboBox.Text,EndCombobox.Text,RoomTextbox.Text,StatusComboBox.Text,SectionTextbox.Text
                             ,SchoolYearTextbox.Text};
             String days;
-            Boolean isNotNull = condition.IsNull(text),isDaysNotNull = CheckDays(), isValid,isYearInt;
+            Boolean isNotNull = condition.IsNotNull(text),isDaysNotNull = CheckDays(), isValid,isYearInt;
             if (isNotNull && isDaysNotNull)
             {
                 days = DaysChosen();
@@ -53,7 +53,7 @@ namespace Enrollment_System
                         thisRow["SSFSTARTTIME"] = TimeStartHourComboBox.Text +":"+TimeStartMinuteComboBox.Text + StartCombobox.Text.Trim();
                         thisRow["SSFENDTIME"] =TimeEndHourComboBox.Text + ":"+TimeEndMinuteComboBox.Text + EndCombobox.Text.Trim();
                         thisRow["SSFDAYS"] = days;
-                        thisRow["SSFROOM"] =RoomTextbox.Text.Trim().Substring(0,4);
+                        thisRow["SSFROOM"] =RoomTextbox.Text.Trim().Substring(1,4);
                         thisRow["SSFMAXSIZE"] = 50;
                         thisRow["SSFCLASSSIZE"] = 0;
                         thisRow["SSFSTATUS"] = StatusComboBox.Text.Trim().Substring(0,2);

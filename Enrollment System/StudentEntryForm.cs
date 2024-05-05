@@ -121,7 +121,7 @@ namespace Enrollment_System
             String[] textBoxes = { IdTextBox.Text, LastNameTextBox.Text, FirstNameTextBox.Text,
                                    MiddleinitialtTextBox.Text, CourseTextBox.Text, YearTextBox.Text, RemarkscomboBox.Text, 
                                    StatuscomboBox.Text };
-            Boolean isNotNull = condition.IsNull(textBoxes),isValid,isIdInt,isYearInt;
+            Boolean isNotNull = condition.IsNotNull(textBoxes),isValid,isIdInt,isYearInt;
             if (isNotNull)
             {
                 isValid = condition.IsValid("StudentFile",studentInformationDataSet, IdTextBox.Text.Trim(), 0);
@@ -135,7 +135,7 @@ namespace Enrollment_System
                         studentInformationRow["STFSTUDLNAME"] = LastNameTextBox.Text.Trim();
                         studentInformationRow["STFSTUDFNAME"] = FirstNameTextBox.Text.Trim();
                         studentInformationRow["STFSTUDMNAME"] = MiddleinitialtTextBox.Text.Trim();
-                        studentInformationRow["STFSTUDCOURSE"] = CourseTextBox.Text.Trim();
+                        studentInformationRow["STFSTUDCOURSE"] = CourseTextBox.Text.Trim().ToUpper();
                         studentInformationRow["STFSTUDYEAR"] = Convert.ToInt16(YearTextBox.Text.Trim());
                         studentInformationRow["STFSTUDREMARKS"] = RemarkscomboBox.Text.Trim();
                         studentInformationRow["STFSTUDSTATUS"] = StatuscomboBox.Text.Trim().Substring(0, 2).ToUpper();
