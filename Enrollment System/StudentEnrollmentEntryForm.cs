@@ -57,13 +57,57 @@ namespace Enrollment_System
             isNotNull = conditions.IsNotNull(entryFields);
             if (isNotNull)
             {
-
+                MessageBox.Show("Enter Required Fields");
+                return;
             }
+            
         }
 
         private void SubjectEnrollmentGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void groupbox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void IDNumberTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+               
+                OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
+                String sql = "SELECT * FROM STUDENTFILE";
+                OleDbDataAdapter thisAdapter = new OleDbDataAdapter(sql, thisConnection);
+                OleDbCommandBuilder thisBuilder = new OleDbCommandBuilder(thisAdapter);
+                DataSet thisDataSet = new DataSet();
+                thisAdapter.Fill(thisDataSet,"StudentFile");
+
+                Conditions conditions = new Conditions();
+                string[] entryFields = { IDNumberTextbox.Text };
+                bool isNotNull;
+                isNotNull = conditions.IsNotNull(entryFields);
+                if(!isNotNull)
+                {
+                    MessageBox.Show("ID Number Required");
+                    return;
+                }
+                DataRow navigatorRow;
+                int rowNavigator = 0;
+                foreach (DataRow row in thisDataSet.Tables["StudentFile"].Rows)
+                {
+                    navigatorRow = thisDataSet.Tables["StudentFile"].Rows[rowNavigator];
+                    if (navigatorRow.ItemArray.GetValue(0).ToString() == IDNumberTextbox.Text.Trim())
+                    {
+                        NameTextbox.Text = navigatorRow.ItemArray[1].ToString()+" "+ navigatorRow.ItemArray[2].ToString() + " " + navigatorRow.ItemArray[3].ToString();
+                        CourseTextbox.Text = navigatorRow.ItemArray[4].ToString();
+                        YearTextbox.Text = navigatorRow.ItemArray[5].ToString();
+                    }
+                    rowNavigator++;
+                }
+            }
         }
     }
 }

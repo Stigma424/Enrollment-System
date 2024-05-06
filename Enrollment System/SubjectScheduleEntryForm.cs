@@ -48,7 +48,7 @@ namespace Enrollment_System
                 if (isValid)
                 {
                     isYearInt = condition.isInteger(SchoolYearTextbox.Text);
-                    isNotConflicted = CheckConflict(DataSet);
+                    isNotConflicted = CheckConflictTime(DataSet);
                     if(isYearInt && isNotConflicted)
                     {
                         thisRow["SSFEDPCODE"] = SubjectEDPCodeTextbox.Text.Trim();
@@ -82,7 +82,31 @@ namespace Enrollment_System
                 MessageBox.Show("Field Entry Required");
             }
         }
-        private Boolean CheckConflict(DataSet thisDataSet)
+        private Boolean CheckConflictDays(DataSet thisDataSet)
+        {
+            
+            return true;
+        }
+        private Boolean CheckConflictRoom(DataSet thisDataSet)
+        {
+            DataRow navigatorRow;
+            int rowNavigator = 0;
+            foreach (DataRow row in thisDataSet.Tables["SubjectSchedFile"].Rows)
+            {
+                navigatorRow = thisDataSet.Tables["SubjectSchedFile"].Rows[rowNavigator];
+                if (navigatorRow.ItemArray.GetValue(5).ToString() == RoomTextbox.Text)
+                {
+                    if (!navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("AC"))
+                    {
+                        return false;
+                    }
+                }
+                rowNavigator++;
+
+            }
+            return true;
+        }
+        private Boolean CheckConflictTime(DataSet thisDataSet)
         {
             DateTime timeStart = Convert.ToDateTime(TimeStartHourComboBox.Text + ":" + TimeStartMinuteComboBox.Text + StartCombobox.Text.Trim()),
                      timeEnd = Convert.ToDateTime(TimeEndHourComboBox.Text + ":" + TimeEndMinuteComboBox.Text + EndCombobox.Text.Trim());
@@ -91,9 +115,13 @@ namespace Enrollment_System
             foreach (DataRow row in thisDataSet.Tables["SubjectSchedFile"].Rows)
             {
                 navigatorRow = thisDataSet.Tables["SubjectSchedFile"].Rows[rowNavigator];
-                if (Convert.ToDateTime(navigatorRow.ItemArray.GetValue(2).ToString()) < timeEnd && Convert.ToDateTime(navigatorRow.ItemArray.GetValue(3).ToString()) > timeStart)
-                {  
+                if (Convert.ToDateTime(Convert.ToDateTime(navigatorRow.ItemArray.GetValue(2).ToString()).ToString("HH:mm")) < Convert.ToDateTime(timeEnd.ToString("HH:mm")) 
+                    && Convert.ToDateTime(Convert.ToDateTime(navigatorRow.ItemArray.GetValue(3).ToString()).ToString("HH:mm")) > Convert.ToDateTime(timeStart.ToString("HH:mm")))
+                {
+                    if (!navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("AC"))
+                    {
                         return false;
+                    }
                 }
                 rowNavigator++;
 

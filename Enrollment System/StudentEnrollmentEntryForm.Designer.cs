@@ -87,6 +87,7 @@
             this.YearTextbox.Location = new System.Drawing.Point(74, 136);
             this.YearTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.YearTextbox.Name = "YearTextbox";
+            this.YearTextbox.ReadOnly = true;
             this.YearTextbox.Size = new System.Drawing.Size(76, 20);
             this.YearTextbox.TabIndex = 30;
             // 
@@ -100,9 +101,10 @@
             // 
             // CourseTextbox
             // 
-            this.CourseTextbox.Location = new System.Drawing.Point(74, 83);
+            this.CourseTextbox.Location = new System.Drawing.Point(74, 84);
             this.CourseTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.CourseTextbox.Name = "CourseTextbox";
+            this.CourseTextbox.ReadOnly = true;
             this.CourseTextbox.Size = new System.Drawing.Size(76, 20);
             this.CourseTextbox.TabIndex = 28;
             // 
@@ -111,7 +113,8 @@
             this.NameTextbox.Location = new System.Drawing.Point(74, 55);
             this.NameTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.NameTextbox.Name = "NameTextbox";
-            this.NameTextbox.Size = new System.Drawing.Size(76, 20);
+            this.NameTextbox.ReadOnly = true;
+            this.NameTextbox.Size = new System.Drawing.Size(129, 20);
             this.NameTextbox.TabIndex = 27;
             // 
             // IDNumberTextbox
@@ -121,6 +124,7 @@
             this.IDNumberTextbox.Name = "IDNumberTextbox";
             this.IDNumberTextbox.Size = new System.Drawing.Size(76, 20);
             this.IDNumberTextbox.TabIndex = 26;
+            this.IDNumberTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IDNumberTextbox_KeyPress);
             // 
             // label5
             // 
@@ -190,6 +194,7 @@
             this.groupbox1.TabIndex = 31;
             this.groupbox1.TabStop = false;
             this.groupbox1.Text = "Student Information";
+            this.groupbox1.Enter += new System.EventHandler(this.groupbox1_Enter);
             // 
             // groupBox2
             // 
