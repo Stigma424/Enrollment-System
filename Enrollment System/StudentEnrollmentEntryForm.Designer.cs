@@ -57,6 +57,7 @@
             this.Units = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label9 = new System.Windows.Forms.Label();
             this.UnitsTextBox = new System.Windows.Forms.TextBox();
+            this.ClearButton = new System.Windows.Forms.Button();
             this.groupbox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SubjectEnrollmentGridView)).BeginInit();
@@ -98,6 +99,7 @@
             this.EDPCodeTextbox.Name = "EDPCodeTextbox";
             this.EDPCodeTextbox.Size = new System.Drawing.Size(76, 20);
             this.EDPCodeTextbox.TabIndex = 29;
+            this.EDPCodeTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EDPCodeTextbox_KeyPress);
             // 
             // CourseTextbox
             // 
@@ -338,14 +340,27 @@
             this.UnitsTextBox.Location = new System.Drawing.Point(881, 365);
             this.UnitsTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.UnitsTextBox.Name = "UnitsTextBox";
+            this.UnitsTextBox.ReadOnly = true;
             this.UnitsTextBox.Size = new System.Drawing.Size(76, 20);
             this.UnitsTextBox.TabIndex = 31;
+            this.UnitsTextBox.Text = "0";
+            // 
+            // ClearButton
+            // 
+            this.ClearButton.Location = new System.Drawing.Point(173, 410);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(75, 23);
+            this.ClearButton.TabIndex = 34;
+            this.ClearButton.Text = "Clear";
+            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
             // StudentEnrollmentEntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1005, 492);
+            this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.UnitsTextBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.SubjectEnrollmentGridView);
@@ -396,5 +411,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Units;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox UnitsTextBox;
+        private System.Windows.Forms.Button ClearButton;
     }
 }

@@ -16,9 +16,8 @@ namespace Enrollment_System
         public StudentEnrollmentEntryForm()
         {
             InitializeComponent();
-            GiveDataToSubjectEnrollmentGridView();
+            
         }
-
         private void BackButton_Click(object sender, EventArgs e)
         {
             MainMenu mainMenu = new MainMenu();
@@ -28,6 +27,9 @@ namespace Enrollment_System
         }
         //TODO ALOT
         //COMPLETION SAVING = 0% CONDITIONS = DEAD UI = TRASH
+        /// <summary>
+        /// This is Still WIP
+        /// </summary>
         private void GiveDataToSubjectEnrollmentGridView()
         {
             OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
@@ -45,7 +47,7 @@ namespace Enrollment_System
         private void SaveButton_Click(object sender, EventArgs e)
         {
             OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
-            String sql = "SELECT * FROM ENROLLMENTHEADERFILE";
+            String sql = "SELECT * FROM ENROLLMENTDETAILFILE WHERE 1=0";
             OleDbDataAdapter thisAdapter = new OleDbDataAdapter(sql,thisConnection);
             OleDbCommandBuilder thisBuilder = new OleDbCommandBuilder(thisAdapter);
             DataSet thisDataSet = new DataSet();
@@ -55,12 +57,43 @@ namespace Enrollment_System
                         EncoderTextbox.Text,EnrollmentDateTimePicker.Text,UnitsTextBox.Text};
             bool isNotNull;
             isNotNull = conditions.IsNotNull(entryFields);
-            if (isNotNull)
+            if (!isNotNull)
             {
                 MessageBox.Show("Enter Required Fields");
                 return;
             }
-            
+            thisAdapter.Fill(thisDataSet, "EnrollmentDetailFile");
+            foreach(DataGridViewRow row in SubjectEnrollmentGridView.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    DataRow thisRow = thisDataSet.Tables["EnrollmentDetailFile"].NewRow();
+                    thisRow["ENRDFSTUDID"] = Convert.ToInt64(IDNumberTextbox.Text);
+                    thisRow["ENRDFSTUDSUBJCODE"] = row.Cells["SubjectCode"].Value.ToString();
+                    thisRow["ENRDFSTUDEDPCODE"] = row.Cells["EDPCode"].Value.ToString();
+                    thisRow["ENRDFSTUDSTATUS"] = "";
+                    thisDataSet.Tables["EnrollmentDetailFile"].Rows.Add(thisRow);
+                }
+            }
+            thisAdapter.Update(thisDataSet, "EnrollmentDetailFile");
+
+            sql = "SELECT * FROM ENROLLMENTHEADERFILE WHERE 1=0";
+            thisAdapter = new OleDbDataAdapter(sql, thisConnection);
+            thisBuilder = new OleDbCommandBuilder(thisAdapter);
+            DataSet headerDataSet = new DataSet();
+
+            thisAdapter.Fill(headerDataSet,"EnrollmentHeaderFile");
+            DataRow thisHeaderRow = headerDataSet.Tables["EnrollmentHeaderFile"].NewRow();
+            thisHeaderRow["ENRHFSTUDID"] = Convert.ToInt64(IDNumberTextbox.Text);
+            thisHeaderRow["ENRHFSTUDATEENROLL"] = EnrollmentDateTimePicker.Text;
+            thisHeaderRow["ENRHFSTUDSCHLYR"] = YearTextbox.Text;
+            thisHeaderRow["ENRHFSTUDENCODER"] = EncoderTextbox.Text;
+            thisHeaderRow["ENRHFSTUDTOTALUNITS"] = Convert.ToDouble(UnitsTextBox.Text);
+            thisHeaderRow["ENRHFSTUDSTATUS"] = "EN";
+            headerDataSet.Tables["EnrollmentHeaderFile"].Rows.Add(thisHeaderRow);
+            thisAdapter.Update(headerDataSet, "EnrollmentHeaderFile");
+
+            MessageBox.Show("Subjects Enrolled");
         }
 
         private void SubjectEnrollmentGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -86,8 +119,8 @@ namespace Enrollment_System
                 thisAdapter.Fill(thisDataSet,"StudentFile");
 
                 Conditions conditions = new Conditions();
-                string[] entryFields = { IDNumberTextbox.Text };
-                bool isNotNull;
+                string[] entryFields = {IDNumberTextbox.Text};
+                bool isNotNull,found = false;
                 isNotNull = conditions.IsNotNull(entryFields);
                 if(!isNotNull)
                 {
@@ -104,10 +137,93 @@ namespace Enrollment_System
                         NameTextbox.Text = navigatorRow.ItemArray[1].ToString()+" "+ navigatorRow.ItemArray[2].ToString() + " " + navigatorRow.ItemArray[3].ToString();
                         CourseTextbox.Text = navigatorRow.ItemArray[4].ToString();
                         YearTextbox.Text = navigatorRow.ItemArray[5].ToString();
+                        found = true;
                     }
                     rowNavigator++;
                 }
+                if (!found)
+                {
+                    MessageBox.Show("ID not Found");
+                }
             }
+        }
+
+        private void EDPCodeTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
+                String sql = "SELECT schedule.*,subject.SFSUBJUNITS From SUBJECTSCHEDFILE schedule LEFT JOIN SUBJECTFILE subject ON schedule.SSFSUBJCODE = subject.SFSUBJCODE";
+                OleDbDataAdapter thisAdapter = new OleDbDataAdapter(sql, thisConnection);
+                OleDbCommandBuilder thisBuilder = new OleDbCommandBuilder(thisAdapter);
+                DataSet thisDataSet = new DataSet();
+                thisAdapter.Fill(thisDataSet, "SubjectSchedFile");
+                Conditions conditions = new Conditions();
+                string[] entryFields = {IDNumberTextbox.Text,NameTextbox.Text,CourseTextbox.Text,EDPCodeTextbox.Text,YearTextbox.Text,
+                        EncoderTextbox.Text,EnrollmentDateTimePicker.Text};
+                bool isNotNull,isDupe,isNotActive,found = false;
+                isNotNull = conditions.IsNotNull(entryFields);
+                double totalUnits = Convert.ToDouble(UnitsTextBox.Text);
+                if (!isNotNull)
+                {
+                    MessageBox.Show("Entry Field Required");
+                    return;
+                }
+                foreach (DataRow row in thisDataSet.Tables["SubjectSchedFile"].Rows)
+                {
+                    if (EDPCodeTextbox.Text.Trim() == row.ItemArray.GetValue(0).ToString().Trim())
+                    {
+                        isDupe = CheckDupesGrid(EDPCodeTextbox.Text);
+                        isNotActive = CheckStatus(row);
+                        if (isDupe)
+                        {
+                            MessageBox.Show("Duplicate Subject Edp Code is not Allowed");
+                            found = true;
+                            continue;
+                        }
+                        if (isNotActive)
+                        {
+                            MessageBox.Show("Subject is Found but Not Active");
+                            found = true;
+                            continue;
+                        }
+                        SubjectEnrollmentGridView.Rows.Add(row["SSFEDPCODE"], row["SSFSUBJCODE"], row["SSFSTARTTIME"], row["SSFENDTIME"], row["SSFDAYS"], row["SSFROOM"], row["SFSUBJUNITS"]);
+                        totalUnits += Convert.ToDouble(row.ItemArray.GetValue(12).ToString());
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    MessageBox.Show("EDP Code Not Found");
+                }
+                UnitsTextBox.Text = totalUnits.ToString();
+            }
+        }
+        private Boolean CheckDupesGrid(string edpCode)
+        {
+            foreach (DataGridViewRow row in SubjectEnrollmentGridView.Rows)
+            {
+                DataGridViewCell cell = row.Cells["EDPCode"];
+                if (cell != null && cell.Value != null)
+                {
+                    string edpCodeGrid = cell.Value.ToString();
+                    if (edpCodeGrid.Equals(edpCode))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        private Boolean CheckStatus(DataRow row)
+        {
+            string status = row.ItemArray[8].ToString().ToUpper();
+            return !(status == "AC"); 
+        }
+        
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
