@@ -53,8 +53,13 @@ namespace Enrollment_System
                 int index;
                 isNotNull = conditions.IsNotNull(entryTextBoxes);
                 isRadioButtonNotNull = GetPreCoRequisite(out coPre);
+                
                 if (isNotNull && isRadioButtonNotNull)
                 {
+                    if (SamePreqSubjectCode())
+                    {
+                        return;
+                    }
                     isSubCodeFound = conditions.IsValid("SubjectFIle", thisDataSet, SISubjectCodeTextBox.Text, 0);
                     if (!isSubCodeFound)
                     {
@@ -103,7 +108,14 @@ namespace Enrollment_System
                 }
             }
         }
-        
+        private Boolean SamePreqSubjectCode()
+        {
+            if(RIRequisiteTextBox.Text == SISubjectCodeTextBox.Text)
+            {
+                return false;
+            }
+            return true;
+        }
         private Boolean GetPreCoRequisite(out string coPre)
         {
             if (RIPreRequisiteRadioButton.Checked)

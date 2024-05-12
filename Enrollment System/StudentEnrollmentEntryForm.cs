@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -62,16 +63,32 @@ namespace Enrollment_System
                 MessageBox.Show("Enter Required Fields");
                 return;
             }
+            if (!(SubjectEnrollmentGridView.Rows.Count > 1 && SubjectEnrollmentGridView.Rows != null))
+            {
+                MessageBox.Show("Datagrid is empty Please Fill");
+                return;
+            }
+            if (isValidHeader())
+            {
+                MessageBox.Show("Student is Already Enrolled");
+                return;
+            }
             thisAdapter.Fill(thisDataSet, "EnrollmentDetailFile");
-            foreach(DataGridViewRow row in SubjectEnrollmentGridView.Rows)
+            foreach (DataGridViewRow row in SubjectEnrollmentGridView.Rows)
             {
                 if (!row.IsNewRow)
                 {
                     DataRow thisRow = thisDataSet.Tables["EnrollmentDetailFile"].NewRow();
+                    if (!IsValidEnroll(row.Cells["EDPCode"].Value.ToString()))
+                    {
+                        MessageBox.Show("Student Has Already Enrolled in the Class"); /// make this return before updating
+                        return;
+                    }
                     thisRow["ENRDFSTUDID"] = Convert.ToInt64(IDNumberTextbox.Text);
                     thisRow["ENRDFSTUDSUBJCODE"] = row.Cells["SubjectCode"].Value.ToString();
                     thisRow["ENRDFSTUDEDPCODE"] = row.Cells["EDPCode"].Value.ToString();
                     thisRow["ENRDFSTUDSTATUS"] = "";
+                    UpdateClassSize(row.Cells["EDPCode"].Value.ToString());
                     thisDataSet.Tables["EnrollmentDetailFile"].Rows.Add(thisRow);
                 }
             }
@@ -82,7 +99,7 @@ namespace Enrollment_System
             thisBuilder = new OleDbCommandBuilder(thisAdapter);
             DataSet headerDataSet = new DataSet();
 
-            thisAdapter.Fill(headerDataSet,"EnrollmentHeaderFile");
+            thisAdapter.Fill(headerDataSet, "EnrollmentHeaderFile");
             DataRow thisHeaderRow = headerDataSet.Tables["EnrollmentHeaderFile"].NewRow();
             thisHeaderRow["ENRHFSTUDID"] = Convert.ToInt64(IDNumberTextbox.Text);
             thisHeaderRow["ENRHFSTUDATEENROLL"] = EnrollmentDateTimePicker.Text;
@@ -94,6 +111,78 @@ namespace Enrollment_System
             thisAdapter.Update(headerDataSet, "EnrollmentHeaderFile");
 
             MessageBox.Show("Subjects Enrolled");
+        } 
+        private Boolean isValidHeader()
+        {
+            OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
+            String sql = "SELECT * FROM ENROLLMENTHEADERFILE";
+            OleDbDataAdapter thisAdapter = new OleDbDataAdapter(sql, thisConnection);
+            OleDbCommandBuilder thisBuilder = new OleDbCommandBuilder(thisAdapter);
+            DataSet thisDataSet = new DataSet();
+            thisAdapter.Fill(thisDataSet, "EnrollmentHeaderFile");
+            DataRow navigatorRow;
+            int rowNavigator = 0;
+            foreach (DataRow row in thisDataSet.Tables["EnrollmentHeaderFile"].Rows)
+            {
+                navigatorRow = thisDataSet.Tables["EnrollmentHeaderFile"].Rows[rowNavigator];
+                if (navigatorRow.ItemArray.GetValue(0).ToString() == IDNumberTextbox.Text)
+                {
+                    return true;
+                }
+                rowNavigator++;
+
+            }
+            return false;
+        }
+        private Boolean IsValidEnroll(String edpcode)
+        {
+            OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
+            String sql = "SELECT * FROM ENROLLMENTDETAILFILE";
+            OleDbDataAdapter thisAdapter = new OleDbDataAdapter(sql, thisConnection);
+            OleDbCommandBuilder thisBuilder = new OleDbCommandBuilder(thisAdapter);
+            DataSet thisDataSet = new DataSet();
+            thisAdapter.Fill(thisDataSet, "EnrollmentDetailFile");
+            DataRow navigatorRow;
+            int rowNavigator = 0;
+            foreach (DataRow row in thisDataSet.Tables["EnrollmentDetailFile"].Rows)
+            {
+                navigatorRow = thisDataSet.Tables["EnrollmentDetailFile"].Rows[rowNavigator];
+                if (navigatorRow["ENRDFSTUDID"].ToString() == IDNumberTextbox.Text)
+                {
+                    if (navigatorRow["ENRDFSTUDEDPCODE"].ToString() == edpcode)
+                    {
+                        return false;
+                    }
+                }
+                rowNavigator++;
+
+            }
+            return true;
+        }
+        private void UpdateClassSize(String edpCode)
+        {
+            OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
+            String sql = "SELECT * FROM SUBJECTSCHEDFILE";
+            OleDbDataAdapter thisAdapter = new OleDbDataAdapter(sql, thisConnection);
+            OleDbCommandBuilder thisBuilder = new OleDbCommandBuilder(thisAdapter);
+            DataSet thisDataSet = new DataSet();
+            thisAdapter.Fill(thisDataSet, "SubjectSchedFile");
+            DataRow navigatorRow;
+            int rowNavigator = 0;
+            foreach (DataRow row in thisDataSet.Tables["SubjectSchedFile"].Rows)
+            {
+                navigatorRow = thisDataSet.Tables["SubjectSchedFile"].Rows[rowNavigator];
+                if (navigatorRow.ItemArray.GetValue(0).ToString() == edpCode.Trim())
+                {
+                    navigatorRow["SSFCLASSSIZE"] = Convert.ToInt32(navigatorRow["SSFCLASSSIZE"].ToString()) + 1;
+                    if (Convert.ToInt32(navigatorRow["SSFCLASSSIZE"]) >= Convert.ToInt32(navigatorRow["SSFMAXSIZE"]))
+                    {
+                        navigatorRow["SSFSTATUS"] = "Cl";
+                    }
+                }
+                rowNavigator++;
+            }
+            thisAdapter.Update(thisDataSet, "SubjectSchedFile");
         }
 
         private void SubjectEnrollmentGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
