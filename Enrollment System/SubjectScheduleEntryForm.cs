@@ -22,10 +22,8 @@ namespace Enrollment_System
         {
 
         }
-        //TODO ALOT = Do something about the DATETIME in database / Condition to avoid time end must not be lesser than start
-        //days room conflict and more conditions
-        // include list soon
-        //COMPLETION SAVING = 80% CONDITIONS = NAH UI = TRASH
+        //TODO = UI
+        //COMPLETION SAVING = 100% CONDITIONS = NAH UI = TRASH
         private void SaveButon_Click(object sender, EventArgs e)
         {
             OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
@@ -40,69 +38,80 @@ namespace Enrollment_System
                             TimeEndHourComboBox.Text,TimeStartMinuteComboBox.Text,EndCombobox.Text,RoomTextbox.Text,StatusComboBox.Text,SectionTextbox.Text
                             ,SchoolYearTextbox.Text};
             String days;
-            Boolean isNotNull = condition.IsNotNull(text),isDaysNotNull = CheckDays(), isNotValid,isYearNotInt,isConflictedRoom
-                ,isConflictedTime,isConflictedDays, isSubjCodeNotFound;
-            if(isNotNull && isDaysNotNull)
+            Boolean isNotNull = condition.IsNotNull(text), isDaysNotNull = CheckDays(), isNotValid, isYearNotInt, isConflictedRoom
+                , isConflictedTime, isConflictedDays, isSubjCodeNotFound;
+            if (!isNotNull || !isDaysNotNull)
             {
                 MessageBox.Show("Field Entry Required");
                 return;
             }
             days = DaysChosen();
             isNotValid = condition.IsValid("SubjectSchedFile", DataSet, SubjectEDPCodeTextbox.Text, 0);
-            if (isNotValid)
+            if (!isNotValid)
             {
                 MessageBox.Show("Another Entry with the same Subject EDP Code has been found");
                 return;
             }
             isYearNotInt = condition.isInteger(SchoolYearTextbox.Text);
-            if (isYearNotInt)
+            if (!isYearNotInt)
             {
                 MessageBox.Show("Year must be a Number");
                 return;
             }
             isSubjCodeNotFound = CheckSubjectCode();
-            if ( isSubjCodeNotFound)
+            if (!isSubjCodeNotFound)
             {
-                MessageBox.Show("Subject Code Not Found");
+                MessageBox.Show("Subject Code Not Found Or Not Active");
+                return;
+            }
+            if (CheckTimeDifference())
+            {
+                MessageBox.Show("Time Start must be less than Time End");
                 return;
             }
             isConflictedRoom = CheckConflictRoom(DataSet);
             isConflictedDays = CheckConflictDays(DataSet);
             isConflictedTime = CheckConflictTime(DataSet);
-            if (isConflictedRoom && isConflictedDays && isConflictedTime)
+            if (!isConflictedRoom && !isConflictedDays && !isConflictedTime)
             {
-                String message = " ";
-                if (isConflictedTime)
-                {
-                    message += "Time ";
-                }
-                if (isConflictedDays)
-                {
-                    message += "Days ";
-                }
-                if (isConflictedRoom)
-                {
-                    message += "Room ";
-                }
-                MessageBox.Show("Existing Schedule with the same"+message+"has been found");
+
+                MessageBox.Show("Existing entry that conflicts with this entry has been found");
                 return;
             }
+            string room = RoomTextbox.Text.Trim().ToString();
+            if (room.Length > 4)
+            {
+                MessageBox.Show("Room must be 4 digits below");
+                return;
+            }
+
             thisRow["SSFEDPCODE"] = SubjectEDPCodeTextbox.Text.Trim();
             thisRow["SSFSUBJCODE"] = SubjectCodeTextbox.Text.Trim();
             thisRow["SSFSTARTTIME"] = TimeStartHourComboBox.Text + ":" + TimeStartMinuteComboBox.Text + StartCombobox.Text.Trim();
             thisRow["SSFENDTIME"] = TimeEndHourComboBox.Text + ":" + TimeEndMinuteComboBox.Text + EndCombobox.Text.Trim();
             thisRow["SSFDAYS"] = days;
-            thisRow["SSFROOM"] = RoomTextbox.Text.Trim().ToString().Substring(0, 4);
+            thisRow["SSFROOM"] = room;
             thisRow["SSFMAXSIZE"] = 50;
             thisRow["SSFCLASSSIZE"] = 0;
-            thisRow["SSFSTATUS"] = StatusComboBox.Text.Trim().Substring(0, 2);
+            thisRow["SSFSTATUS"] = StatusComboBox.Text.Trim().Substring(0, 2).ToUpper();
             thisRow["SSFXM"] = StartCombobox.Text.Trim() + EndCombobox.Text.Trim();
             thisRow["SSFSECTION"] = SectionTextbox.Text.Trim().ToUpper();
             thisRow["SSFSCHOOLYEAR"] = SchoolYearTextbox.Text.Trim();
             MessageBox.Show("Entry Recorded");
             DataSet.Tables["SubjectSchedFile"].Rows.Add(thisRow);
             thisAdapter.Update(DataSet, "SubjectSchedFile");
-            thisRow["SSFEDPCODE"] = SubjectEDPCodeTextbox.Text.Trim();
+            ClearAll();
+        }
+        private Boolean CheckTimeDifference()
+        {
+            DateTime timeStart = Convert.ToDateTime(TimeStartHourComboBox.Text + ":" + TimeStartMinuteComboBox.Text + StartCombobox.Text.Trim()),
+                     timeEnd = Convert.ToDateTime(TimeEndHourComboBox.Text + ":" + TimeEndMinuteComboBox.Text + EndCombobox.Text.Trim());
+            if (timeEnd > timeStart)
+            {
+                return false;
+            }
+            return true;
+
         }
         private Boolean CheckSubjectCode()
         {
@@ -119,7 +128,10 @@ namespace Enrollment_System
                 navigatorRow = thisDataSet.Tables["SubjectFile"].Rows[rowNavigator];
                 if (navigatorRow.ItemArray.GetValue(0).ToString() == SubjectCodeTextbox.Text)
                 {
-                    return false;
+                    if (navigatorRow.ItemArray.GetValue(5).ToString().ToUpper() == "AC")
+                    {
+                        return false;
+                    }
                 }
                 rowNavigator++;
 
@@ -146,7 +158,10 @@ namespace Enrollment_System
                     {
                         if (dayDatabase == dayCurr)
                         {
-                            return false;
+                            if (!navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("AC") || !navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("CL"))
+                            {
+                                return false;
+                            }
                         }
                     }
                 }
@@ -165,7 +180,7 @@ namespace Enrollment_System
                 navigatorRow = thisDataSet.Tables["SubjectSchedFile"].Rows[rowNavigator];
                 if (navigatorRow.ItemArray.GetValue(5).ToString() == RoomTextbox.Text)
                 {
-                    if (!navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("AC"))
+                    if (!navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("AC") || !navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("CL"))
                     {
                         return false;
                     }
@@ -187,7 +202,7 @@ namespace Enrollment_System
                 if (Convert.ToDateTime(Convert.ToDateTime(navigatorRow.ItemArray.GetValue(2).ToString()).ToString("HH:mm")) < Convert.ToDateTime(timeEnd.ToString("HH:mm")) 
                     && Convert.ToDateTime(Convert.ToDateTime(navigatorRow.ItemArray.GetValue(3).ToString()).ToString("HH:mm")) > Convert.ToDateTime(timeStart.ToString("HH:mm")))
                 {
-                    if (!navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("AC"))
+                    if (!navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("AC") || !navigatorRow.ItemArray.GetValue(8).ToString().ToUpper().Equals("CL"))
                     {
                         return false;
                     }
@@ -320,6 +335,76 @@ namespace Enrollment_System
         }
 
         private void TimeStartHourComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void ClearAll()
+        {
+            SubjectCodeTextbox.Text = "";
+            SubjectEDPCodeTextbox.Text = "";
+            StartCombobox.Text = "AM";
+            TimeStartHourComboBox.Text = "Hour";
+            TimeStartMinuteComboBox.Text = "Min";
+            EndCombobox.Text = "AM";
+            TimeEndHourComboBox.Text = "Hour";
+            TimeEndMinuteComboBox.Text = "Min";
+            RoomTextbox.Text = "";
+            StatusComboBox.Text = "";
+            SectionTextbox.Text = "";
+            SchoolYearTextbox.Text = "";
+            MondayCheckBox.Checked = false;
+            TuesdayCheckBox.Checked = false;
+            WednesdayCheckBox.Checked = false;
+            FridayCheckBox.Checked = false;
+            ThursdayCheckBox.Checked = false;
+            SaturdayCheckBox.Checked = false;
+        }
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+        }
+
+        private void SubjectCodeTextbox_TextChanged(object sender, EventArgs e)
+        {
+                    
+        }
+
+        private void DescriptionTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SubjectCodeTextbox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                OleDbConnection thisConnection = new OleDbConnection(DatabaseConnectionString.connectionString);
+                String sql = "SELECT * FROM SUBJECTFILE";
+                OleDbDataAdapter thisAdapter = new OleDbDataAdapter(sql, thisConnection);
+                OleDbCommandBuilder thisBuilder = new OleDbCommandBuilder(thisAdapter);
+                DataSet thisDataSet = new DataSet();
+                thisAdapter.Fill(thisDataSet, "SubjectFile");
+
+                Conditions conditions = new Conditions();
+
+                DataRow navigatorRow;
+                int rowNavigator = 0;
+                bool codeNotFound = true;
+                foreach (DataRow row in thisDataSet.Tables["SubjectFile"].Rows)
+                {
+                    navigatorRow = thisDataSet.Tables["SubjectFile"].Rows[rowNavigator];
+                    if (navigatorRow.ItemArray.GetValue(0).ToString() == SubjectCodeTextbox.Text.Trim())
+                    {
+                        DescriptionTextBox.Text = navigatorRow["SFSUBJDESC"].ToString();
+                        codeNotFound = false;
+                    }
+                    rowNavigator++;
+                }
+            }
+            
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

@@ -57,16 +57,18 @@
             this.SaveButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.BackButton = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SubjectDataGridView)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SISubjectCodeTextBox
             // 
             this.SISubjectCodeTextBox.Location = new System.Drawing.Point(103, 28);
             this.SISubjectCodeTextBox.Name = "SISubjectCodeTextBox";
-            this.SISubjectCodeTextBox.Size = new System.Drawing.Size(100, 20);
+            this.SISubjectCodeTextBox.Size = new System.Drawing.Size(100, 23);
             this.SISubjectCodeTextBox.TabIndex = 1;
             this.SISubjectCodeTextBox.TextChanged += new System.EventHandler(this.SISubjectCodeTextBox_TextChanged);
             // 
@@ -79,14 +81,15 @@
             "3 Summer"});
             this.SIOfferingComboBox.Location = new System.Drawing.Point(103, 104);
             this.SIOfferingComboBox.Name = "SIOfferingComboBox";
-            this.SIOfferingComboBox.Size = new System.Drawing.Size(121, 21);
+            this.SIOfferingComboBox.Size = new System.Drawing.Size(121, 24);
             this.SIOfferingComboBox.TabIndex = 2;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(260, 9);
+            this.label1.Location = new System.Drawing.Point(299, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(176, 31);
             this.label1.TabIndex = 0;
@@ -108,12 +111,13 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 13);
+            this.label2.Size = new System.Drawing.Size(92, 17);
             this.label2.TabIndex = 4;
             this.label2.Text = "Subject Code";
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(108)))), ((int)(((byte)(168)))));
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.SICurriculumYearTextBox);
             this.groupBox1.Controls.Add(this.label5);
@@ -128,6 +132,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.SISubjectCodeTextBox);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 52);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(332, 233);
@@ -140,15 +145,15 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 190);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.Size = new System.Drawing.Size(109, 17);
             this.label8.TabIndex = 14;
             this.label8.Text = "Curriculum Year";
             // 
             // SICurriculumYearTextBox
             // 
-            this.SICurriculumYearTextBox.Location = new System.Drawing.Point(103, 183);
+            this.SICurriculumYearTextBox.Location = new System.Drawing.Point(124, 184);
             this.SICurriculumYearTextBox.Name = "SICurriculumYearTextBox";
-            this.SICurriculumYearTextBox.Size = new System.Drawing.Size(100, 20);
+            this.SICurriculumYearTextBox.Size = new System.Drawing.Size(100, 23);
             this.SICurriculumYearTextBox.TabIndex = 13;
             // 
             // label5
@@ -156,7 +161,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 160);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 13);
+            this.label5.Size = new System.Drawing.Size(90, 17);
             this.label5.TabIndex = 12;
             this.label5.Text = "Course Code";
             // 
@@ -165,7 +170,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 133);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(49, 13);
+            this.label6.Size = new System.Drawing.Size(65, 17);
             this.label6.TabIndex = 11;
             this.label6.Text = "Category";
             // 
@@ -174,7 +179,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 107);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 13);
+            this.label7.Size = new System.Drawing.Size(59, 17);
             this.label7.TabIndex = 10;
             this.label7.Text = "Offering";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -187,7 +192,7 @@
             "LABORATORY"});
             this.SICategoryComboBox.Location = new System.Drawing.Point(103, 133);
             this.SICategoryComboBox.Name = "SICategoryComboBox";
-            this.SICategoryComboBox.Size = new System.Drawing.Size(121, 21);
+            this.SICategoryComboBox.Size = new System.Drawing.Size(121, 24);
             this.SICategoryComboBox.TabIndex = 9;
             // 
             // SICourseCodeComboBox
@@ -203,21 +208,21 @@
             "BSED"});
             this.SICourseCodeComboBox.Location = new System.Drawing.Point(103, 157);
             this.SICourseCodeComboBox.Name = "SICourseCodeComboBox";
-            this.SICourseCodeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.SICourseCodeComboBox.Size = new System.Drawing.Size(121, 24);
             this.SICourseCodeComboBox.TabIndex = 8;
             // 
             // SIUnitsTextBox
             // 
             this.SIUnitsTextBox.Location = new System.Drawing.Point(103, 80);
             this.SIUnitsTextBox.Name = "SIUnitsTextBox";
-            this.SIUnitsTextBox.Size = new System.Drawing.Size(58, 20);
+            this.SIUnitsTextBox.Size = new System.Drawing.Size(58, 23);
             this.SIUnitsTextBox.TabIndex = 7;
             // 
             // SIDescriptionTextBox
             // 
             this.SIDescriptionTextBox.Location = new System.Drawing.Point(103, 54);
             this.SIDescriptionTextBox.Name = "SIDescriptionTextBox";
-            this.SIDescriptionTextBox.Size = new System.Drawing.Size(200, 20);
+            this.SIDescriptionTextBox.Size = new System.Drawing.Size(200, 23);
             this.SIDescriptionTextBox.TabIndex = 6;
             // 
             // label4
@@ -225,7 +230,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 79);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 13);
+            this.label4.Size = new System.Drawing.Size(40, 17);
             this.label4.TabIndex = 6;
             this.label4.Text = "Units";
             // 
@@ -234,12 +239,13 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 52);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.Size = new System.Drawing.Size(79, 17);
             this.label3.TabIndex = 5;
             this.label3.Text = "Description";
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(108)))), ((int)(((byte)(168)))));
             this.groupBox2.Controls.Add(this.RICoRequisiteRadioButton);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.RIPreRequisiteRadioButton);
@@ -283,6 +289,7 @@
             // 
             // SubjectDataGridView
             // 
+            this.SubjectDataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(132)))), ((int)(((byte)(144)))));
             this.SubjectDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SubjectDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SubjectCode,
@@ -344,19 +351,29 @@
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.button1_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(22)))), ((int)(((byte)(32)))));
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(132)))), ((int)(((byte)(144)))));
+            this.panel1.Location = new System.Drawing.Point(0, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(799, 34);
+            this.panel1.TabIndex = 19;
+            // 
             // SubjectEntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(43)))), ((int)(((byte)(81)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.SubjectDataGridView);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label1);
             this.Name = "SubjectEntryForm";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -365,8 +382,9 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SubjectDataGridView)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -400,6 +418,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Units;
         private System.Windows.Forms.DataGridViewTextBoxColumn Requisite;
         private System.Windows.Forms.Button BackButton;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

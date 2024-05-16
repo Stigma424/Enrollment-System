@@ -111,6 +111,7 @@ namespace Enrollment_System
             thisAdapter.Update(headerDataSet, "EnrollmentHeaderFile");
 
             MessageBox.Show("Subjects Enrolled");
+            ClearAll();
         } 
         private Boolean isValidHeader()
         {
@@ -276,8 +277,15 @@ namespace Enrollment_System
                             found = true;
                             continue;
                         }
+                        double tempUnits = totalUnits;
+                        if ((tempUnits += Convert.ToDouble(row.ItemArray.GetValue(12).ToString())) > 28)
+                        {
+                            MessageBox.Show("Max Unit has been Reached");
+                            found = true;
+                            continue;
+                        }
+                        totalUnits = tempUnits;
                         SubjectEnrollmentGridView.Rows.Add(row["SSFEDPCODE"], row["SSFSUBJCODE"], row["SSFSTARTTIME"], row["SSFENDTIME"], row["SSFDAYS"], row["SSFROOM"], row["SFSUBJUNITS"]);
-                        totalUnits += Convert.ToDouble(row.ItemArray.GetValue(12).ToString());
                         found = true;
                     }
                 }
@@ -309,8 +317,45 @@ namespace Enrollment_System
             string status = row.ItemArray[8].ToString().ToUpper();
             return !(status == "AC"); 
         }
-        
+        private void ClearAll()
+        {
+            SubjectEnrollmentGridView.Rows.Clear();
+            IDNumberTextbox.Text = "";
+            NameTextbox.Text = "";
+            CourseTextbox.Text = "";
+            EDPCodeTextbox.Text = "";
+            YearTextbox.Text = "";
+            EncoderTextbox.Text = "";
+            UnitsTextBox.Text = "";
+        }
         private void ClearButton_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+        }
+
+        private void RemoveButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!(SubjectEnrollmentGridView.Rows.Count > 1 && SubjectEnrollmentGridView.Rows != null))
+                {
+                    MessageBox.Show("Datagrid is empty Please Fill");
+                    return;
+                }
+                else
+                {
+                    DataGridViewSelectedRowCollection row = SubjectEnrollmentGridView.SelectedRows;
+                    SubjectEnrollmentGridView.Rows.RemoveAt(SubjectEnrollmentGridView.SelectedRows[0].Index);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Please Select Proper Row");
+            }
+            
+        }
+
+        private void EDPCodeTextbox_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -86,6 +86,7 @@ namespace Enrollment_System
                                 thisRow["SUBJCATEGORY"] = coPre;
                                 thisDataSet.Tables["SubjectPreqFile"].Rows.Add(thisRow);
                                 thisAdapter.Update(thisDataSet, "SubjectPreqFile");
+                                MessageBox.Show("Requisite Entry Recorded");
                             }
                             else
                             {
@@ -112,9 +113,9 @@ namespace Enrollment_System
         {
             if(RIRequisiteTextBox.Text == SISubjectCodeTextBox.Text)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
         private Boolean GetPreCoRequisite(out string coPre)
         {
@@ -188,6 +189,7 @@ namespace Enrollment_System
                         thisAdapter.Update(thisDataSet, "SubjectFile");
 
                         MessageBox.Show("Recorded");
+                        ClearAll();
                     }
                     else
                     {
@@ -204,8 +206,7 @@ namespace Enrollment_System
                 MessageBox.Show("Field Entry Required");
             }
         }
-
-        private void ClearButton_Click(object sender, EventArgs e)
+        private void ClearAll()
         {
             SISubjectCodeTextBox.Text = "";
             SIDescriptionTextBox.Text = "";
@@ -218,6 +219,10 @@ namespace Enrollment_System
             RIPreRequisiteRadioButton.Checked = false;
             RIRequisiteTextBox.Text = "";
             SubjectDataGridView.Rows.Clear();
+        }
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            ClearAll();
         }
 
         private void button1_Click(object sender, EventArgs e)

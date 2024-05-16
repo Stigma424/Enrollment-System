@@ -58,9 +58,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.UnitsTextBox = new System.Windows.Forms.TextBox();
             this.ClearButton = new System.Windows.Forms.Button();
+            this.RemoveButton = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupbox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SubjectEnrollmentGridView)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // BackButton
@@ -76,8 +79,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(250, 9);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(132)))), ((int)(((byte)(144)))));
+            this.label1.Location = new System.Drawing.Point(320, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(315, 31);
             this.label1.TabIndex = 20;
@@ -89,7 +94,7 @@
             this.YearTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.YearTextbox.Name = "YearTextbox";
             this.YearTextbox.ReadOnly = true;
-            this.YearTextbox.Size = new System.Drawing.Size(76, 20);
+            this.YearTextbox.Size = new System.Drawing.Size(76, 23);
             this.YearTextbox.TabIndex = 30;
             // 
             // EDPCodeTextbox
@@ -97,8 +102,9 @@
             this.EDPCodeTextbox.Location = new System.Drawing.Point(74, 112);
             this.EDPCodeTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.EDPCodeTextbox.Name = "EDPCodeTextbox";
-            this.EDPCodeTextbox.Size = new System.Drawing.Size(76, 20);
+            this.EDPCodeTextbox.Size = new System.Drawing.Size(76, 23);
             this.EDPCodeTextbox.TabIndex = 29;
+            this.EDPCodeTextbox.TextChanged += new System.EventHandler(this.EDPCodeTextbox_TextChanged);
             this.EDPCodeTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EDPCodeTextbox_KeyPress);
             // 
             // CourseTextbox
@@ -107,7 +113,7 @@
             this.CourseTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.CourseTextbox.Name = "CourseTextbox";
             this.CourseTextbox.ReadOnly = true;
-            this.CourseTextbox.Size = new System.Drawing.Size(76, 20);
+            this.CourseTextbox.Size = new System.Drawing.Size(76, 23);
             this.CourseTextbox.TabIndex = 28;
             // 
             // NameTextbox
@@ -116,7 +122,7 @@
             this.NameTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.NameTextbox.Name = "NameTextbox";
             this.NameTextbox.ReadOnly = true;
-            this.NameTextbox.Size = new System.Drawing.Size(129, 20);
+            this.NameTextbox.Size = new System.Drawing.Size(129, 23);
             this.NameTextbox.TabIndex = 27;
             // 
             // IDNumberTextbox
@@ -124,7 +130,7 @@
             this.IDNumberTextbox.Location = new System.Drawing.Point(74, 29);
             this.IDNumberTextbox.Margin = new System.Windows.Forms.Padding(2);
             this.IDNumberTextbox.Name = "IDNumberTextbox";
-            this.IDNumberTextbox.Size = new System.Drawing.Size(76, 20);
+            this.IDNumberTextbox.Size = new System.Drawing.Size(76, 23);
             this.IDNumberTextbox.TabIndex = 26;
             this.IDNumberTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IDNumberTextbox_KeyPress);
             // 
@@ -134,7 +140,7 @@
             this.label5.Location = new System.Drawing.Point(16, 117);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.Size = new System.Drawing.Size(73, 17);
             this.label5.TabIndex = 25;
             this.label5.Text = "EDP Code";
             // 
@@ -144,7 +150,7 @@
             this.label4.Location = new System.Drawing.Point(16, 139);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 13);
+            this.label4.Size = new System.Drawing.Size(38, 17);
             this.label4.TabIndex = 24;
             this.label4.Text = "Year";
             // 
@@ -154,7 +160,7 @@
             this.label3.Location = new System.Drawing.Point(16, 87);
             this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
+            this.label3.Size = new System.Drawing.Size(53, 17);
             this.label3.TabIndex = 23;
             this.label3.Text = "Course";
             // 
@@ -164,7 +170,7 @@
             this.label2.Location = new System.Drawing.Point(16, 60);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(45, 17);
             this.label2.TabIndex = 22;
             this.label2.Text = "Name";
             // 
@@ -174,12 +180,13 @@
             this.label6.Location = new System.Drawing.Point(16, 34);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 13);
+            this.label6.Size = new System.Drawing.Size(75, 17);
             this.label6.TabIndex = 21;
             this.label6.Text = "ID Number";
             // 
             // groupbox1
             // 
+            this.groupbox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(108)))), ((int)(((byte)(168)))));
             this.groupbox1.Controls.Add(this.IDNumberTextbox);
             this.groupbox1.Controls.Add(this.YearTextbox);
             this.groupbox1.Controls.Add(this.label6);
@@ -190,6 +197,7 @@
             this.groupbox1.Controls.Add(this.NameTextbox);
             this.groupbox1.Controls.Add(this.label4);
             this.groupbox1.Controls.Add(this.label5);
+            this.groupbox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupbox1.Location = new System.Drawing.Point(35, 52);
             this.groupbox1.Name = "groupbox1";
             this.groupbox1.Size = new System.Drawing.Size(231, 178);
@@ -200,6 +208,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(108)))), ((int)(((byte)(168)))));
             this.groupBox2.Controls.Add(this.SaveButton);
             this.groupBox2.Controls.Add(this.EnrollmentDateTimePicker);
             this.groupBox2.Controls.Add(this.label8);
@@ -260,6 +269,7 @@
             // 
             // SubjectEnrollmentGridView
             // 
+            this.SubjectEnrollmentGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(132)))), ((int)(((byte)(144)))));
             this.SubjectEnrollmentGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.SubjectEnrollmentGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EDPCode,
@@ -328,10 +338,13 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(832, 368);
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(132)))), ((int)(((byte)(144)))));
+            this.label9.Location = new System.Drawing.Point(827, 366);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(34, 13);
+            this.label9.Size = new System.Drawing.Size(50, 17);
             this.label9.TabIndex = 31;
             this.label9.Text = "Units:";
             // 
@@ -355,18 +368,39 @@
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
+            // RemoveButton
+            // 
+            this.RemoveButton.Location = new System.Drawing.Point(675, 368);
+            this.RemoveButton.Name = "RemoveButton";
+            this.RemoveButton.Size = new System.Drawing.Size(75, 23);
+            this.RemoveButton.TabIndex = 35;
+            this.RemoveButton.Text = "Remove";
+            this.RemoveButton.UseVisualStyleBackColor = true;
+            this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(22)))), ((int)(((byte)(32)))));
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(0, -1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1004, 47);
+            this.panel1.TabIndex = 36;
+            // 
             // StudentEnrollmentEntryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(43)))), ((int)(((byte)(81)))));
             this.ClientSize = new System.Drawing.Size(1005, 492);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.RemoveButton);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.UnitsTextBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.SubjectEnrollmentGridView);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupbox1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.BackButton);
             this.Name = "StudentEnrollmentEntryForm";
             this.Text = "EnrollmentEntryForm";
@@ -375,6 +409,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SubjectEnrollmentGridView)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -412,5 +448,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox UnitsTextBox;
         private System.Windows.Forms.Button ClearButton;
+        private System.Windows.Forms.Button RemoveButton;
+        private System.Windows.Forms.Panel panel1;
     }
 }
